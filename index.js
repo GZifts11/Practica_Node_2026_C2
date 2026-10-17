@@ -10,6 +10,13 @@ const HOME = fs.readFileSync('./vistas/home.html')
 const API = fs.readFileSync('./vistas/api.html')
 const app = express()
 
+//Routers:
+const routerFrontend = express.Router()
+app.use('/api/lenguajes/frontend', routerFrontend)
+
+const routerBackend = express.Router()
+app.use('/api/lenguajes/backend', routerBackend)
+
 app.get('/',(req, res) =>{
     console.log("Entrando a la raiz de la API")
     res.setHeader('Content-Type', 'text/html')
@@ -31,18 +38,33 @@ app.get('/api/lenguajes', (req, res) => {
     res.send(miJsonLenguajes)
 })
 
-app.get('/api/lenguajes/frontend', (req, res) => {
+routerFrontend.get('/', (req, res) => {
     console.log("Entrando en la ruta /api/lenguajes/frontend")
     res.json(lenguajes.frontend)
  })
 
- app.get('/api/lenguajes/backend', (req, res) => {
+
+
+routerFrontend.get('/:lenguaje', (req, res) => {
+    let lenguajeParam = req.params.lenguaje
+    const filtrado = lenguajes.frontend.filter(
+        lenguajes => lenguajes.nombre.toLocaleLowerCase() == lenguajeParam.toLocaleLowerCase()
+    )
+    if(filtrado.length === 0){
+        return res.status(404).send(`No se encontró el lenguaje en frontend: ${lenguajeParam}`)
+    }
+    res.status(200).json(filtrado)
+}
+)
+
+ routerBackend.get('/', (req, res) => {
     res.json(lenguajes.backend)
  } )
 
-app.get('/api/lenguajes/frontend/:lenguaje', (req, res) => {
+
+ routerBackend.get('/:lenguaje', (req, res) => {
     let lenguajeParam = req.params.lenguaje
-    const filtrado = lenguajes.frontend.filter(
+    const filtrado = lenguajes.backend.filter(
         lenguajes => lenguajes.nombre.toLocaleLowerCase() == lenguajeParam.toLocaleLowerCase()
     )
     if(filtrado.length === 0){
