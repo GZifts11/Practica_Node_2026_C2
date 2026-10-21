@@ -29,7 +29,7 @@ const infoLenguajes = {
             nombre: "CSS",
             turno: "Mañana",
             comision: "A",
-            cantidadAlumnos: 10
+            cantidadAlumnos: 101
 
         },
         {
@@ -45,7 +45,7 @@ const infoLenguajes = {
             nombre: "CSs",
             turno: "Mañana",
             comision: "A",
-            cantidadAlumnos: 10
+            cantidadAlumnos: 1500
 
         },
         {
@@ -53,7 +53,7 @@ const infoLenguajes = {
             nombre: "CsS",
             turno: "Mañana",
             comision: "A",
-            cantidadAlumnos: 10
+            cantidadAlumnos: 1
 
         }
     ],

@@ -1,29 +1,39 @@
 const express = require('express')
-const lenguajes = require('../src/lenguajes').infoLenguajes
+const frontendController = require('../Controllers/frontendController')
 
 const routerFrontend = express.Router()
 
-routerFrontend.get('/', (req, res) => {
-    console.log("Entrando en la ruta /api/lenguajes/frontend")
-    res.json(lenguajes.frontend)
+routerFrontend.use(express.json());
+
+ routerFrontend.get('/', (req, res) => {
+    console.log("Entrando en la ruta /api/lenguajes/frontend - desde el Router")
+    frontendController.readFrontendLenguajes(req, res)
  })
 
-routerFrontend.get('/despedida', (req, res) =>{
-    res.status(200).send("Buenas noches niños")
+routerFrontend.post('/', (req, res) =>{
+    console.log("Entrando en la ruta /api/lenguajes/frontend - desde el Router POST!!!")
+    frontendController.createFrontendLaguage(req, res)
+})
+
+routerFrontend.get('/despedida', (req, res) =>{ frontendController.readFrontendDespedida(req, res) })
+
+routerFrontend.get('/nuevometodo', (req, res) => {
+    frontendController.nuevoMetodoFronted(req, res)
 })
 
 routerFrontend.get('/:lenguaje', (req, res) => {
-    let lenguajeParam = req.params.lenguaje
-    const filtrado = lenguajes.frontend.filter(
-        lenguajes => lenguajes.nombre.toLocaleLowerCase() == lenguajeParam.toLocaleLowerCase()
-    )
-    if(filtrado.length === 0){
-        return res.status(404).send(`No se encontró el lenguaje en frontend: ${lenguajeParam}`)
-    }
-    res.status(200).json(filtrado)
-}
-)
+    frontendController.readFrontendLenguajesOrdered(req, res)
+})
 
 
+
+/* routerFrontend.get('/', (req, res) => {
+    //let queryRaiz = req.query.cualquier //aca agregamos la posibilidad de recibir un query Param en la raiz de Lenguajes - Frontend 
+    //let queryRaizCosa = req.query.cosa
+    console.log("Entrando en la ruta /api/lenguajes/frontend")
+    //lenguajes.frontend.push(queryRaiz) //aca agregamos al array lo que recibimos por query param (que es opcional) sin realizar ningun tipo de validación (mala práctica)
+    //lenguajes.frontend.unshift(queryRaizCosa)
+    res.json(lenguajes.frontend)
+ }) */
 
 module.exports = routerFrontend
