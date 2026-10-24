@@ -1,3 +1,4 @@
+const e = require('express')
 const frontendService = require('../Services/frontendService')
 
 
@@ -39,9 +40,33 @@ exports.nuevoMetodoFronted = (req, res) => {
 
 }
 
-exports.createFrontendLaguage = (req, res) => {
+exports.createFrontendLanguage = (req, res) => {
     console.log(req)
     let lenguajeNuevo = req.body;
     console.log("createFrontendLanguage CONTROLLER - ", lenguajeNuevo)
     res.status(200).json(frontendService.createNewFrontendLanguage(lenguajeNuevo))
+}
+
+exports.deleteFrontendLanguage = (req, res) => {
+    const id = req.params.id
+    const language = frontendService.deleteFrontendLanguageService(id)
+     
+    if(language.length === 0){
+        return res.status(404).send(`No se encuentra un lenguaje a eliminar con el id: ${id}`)
+    }
+    
+    res.status(200).json(language)
+}
+
+exports.updateFrontendLanguage = (req, res) => {
+    const id = req.params.id
+    const lenguajeActualizado = req.body
+
+    const language = frontendService.updateFrontendLanguageService(id, lenguajeActualizado)
+     
+    if(language.length === 0){
+        return res.status(404).send(`No se encuentra un lenguaje a actualizar con el id: ${id}`)
+    }
+    
+    res.status(200).json(language)
 }

@@ -12,7 +12,7 @@ routerFrontend.use(express.json());
 
 routerFrontend.post('/', (req, res) =>{
     console.log("Entrando en la ruta /api/lenguajes/frontend - desde el Router POST!!!")
-    frontendController.createFrontendLaguage(req, res)
+    frontendController.createFrontendLanguage(req, res)
 })
 
 routerFrontend.get('/despedida', (req, res) =>{ frontendController.readFrontendDespedida(req, res) })
@@ -24,6 +24,11 @@ routerFrontend.get('/nuevometodo', (req, res) => {
 routerFrontend.get('/:lenguaje', (req, res) => {
     frontendController.readFrontendLenguajesOrdered(req, res)
 })
+
+routerFrontend.delete("/:id/", frontendController.deleteFrontendLanguage)
+routerFrontend.put("/:id/", frontendController.updateFrontendLanguage)
+
+
 
 
 

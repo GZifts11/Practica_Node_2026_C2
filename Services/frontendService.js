@@ -38,3 +38,11 @@ exports.createNewFrontendLanguage = (language) => {
     console.log(`POST Frontend: - ${language}`)
     return frontendRepository.createNewFrontendLanguageRepository(language)
 }
+
+exports.deleteFrontendLanguageService = (id) => {
+    return frontendRepository.deleteFrontendLanuageRepository(id)
+}
+
+exports.updateFrontendLanguageService = (id, lenguageUpdated) => {
+    return frontendRepository.updateFrontendLanuageRepository(id, lenguageUpdated)
+}

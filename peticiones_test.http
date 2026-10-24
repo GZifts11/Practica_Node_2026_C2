@@ -9,13 +9,40 @@ GET http://127.0.0.1:3000/api/lenguajes/ HTTP/1.1
 ##Esta es la url de prueba de Frontend
 GET http://127.0.0.1:3000/api/lenguajes/frontend HTTP/1.1
 
+####
+##Esta es la url de prueba de Frontend con un url param para filtrar
+GET http://127.0.0.1:3000/api/lenguajes/frontend/css HTTP/1.1
+
+####
+##Esta es la url de prueba de nuevoMetodo
+GET http://127.0.0.1:3000/api/lenguajes/frontend/nuevometodo HTTP/1.1
+
 
 ###
 POST http://127.0.0.1:3000/api/lenguajes/frontend HTTP/1.1
 Content-Type: application/json
 
 {
-    "id": 5,
+    "id": 51,
+    "nombre": "Backend la mejor de todas después de frontend",
+    "turno": "Madrugada",
+    "comision": "C",
+    "cantidadAlumnos": 19
+}
+
+
+####ELIMINAR
+
+###
+DELETE  http://127.0.0.1:3000/api/lenguajes/frontend/ HTTP/1.1
+Content-Type: application/json
+
+###ACTUALIZAR
+PUT http://127.0.0.1:3000/api/lenguajes/frontend/2 HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 51,
     "nombre": "Backend la mejor de todas después de frontend",
     "turno": "Madrugada",
     "comision": "C",
