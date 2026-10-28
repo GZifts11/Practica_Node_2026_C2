@@ -5,30 +5,13 @@ const routerFrontend = express.Router()
 
 routerFrontend.use(express.json());
 
- routerFrontend.get('/', (req, res) => {
-    console.log("Entrando en la ruta /api/lenguajes/frontend - desde el Router")
-    frontendController.readFrontendLenguajes(req, res)
- })
-
-routerFrontend.post('/', (req, res) =>{
-    console.log("Entrando en la ruta /api/lenguajes/frontend - desde el Router POST!!!")
-    frontendController.createFrontendLanguage(req, res)
-})
-
-routerFrontend.get('/despedida', (req, res) =>{ frontendController.readFrontendDespedida(req, res) })
-
-routerFrontend.get('/nuevometodo', (req, res) => {
-    frontendController.nuevoMetodoFronted(req, res)
-})
-
-routerFrontend.get('/:lenguaje', (req, res) => {
-    frontendController.readFrontendLenguajesOrdered(req, res)
-})
-
+routerFrontend.get('/', frontendController.readFrontendLenguajes)
+routerFrontend.post('/', frontendController.createFrontendLanguage)
+/* routerFrontend.get('/despedida', frontendController.readFrontendDespedida) */
+routerFrontend.get('/nuevometodo',frontendController.nuevoMetodoFronted)
+routerFrontend.get('/:lenguaje', frontendController.readFrontendLenguajesOrdered)
 routerFrontend.delete("/:id/", frontendController.deleteFrontendLanguage)
 routerFrontend.put("/:id/", frontendController.updateFrontendLanguage)
-
-
 
 
 

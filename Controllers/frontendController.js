@@ -1,72 +1,96 @@
-const e = require('express')
 const frontendService = require('../Services/frontendService')
 
+exports.readFrontendLenguajes = async (req, res) => {
+    try {
+        console.log("entrando a readFrontendLenguajes en el controller")
+        //res.setHeader("Content-Type", "application/json")
+        res.status(200)
+        res.json(await frontendService.getAllFrontendLanguages())
+        console.log("Saliendo de readFrontendLenguajes en el controller")
 
-
-exports.readFrontendLenguajes = (req, res) => {
-    console.log("entrando a readFrontendLenguajes en el controller")
-    //res.setHeader("Content-Type", "application/json")
-    res.status(200)
-    res.json(frontendService.getAllFrontendLanguages())
-    console.log("Saliendo de readFrontendLenguajes en el controller")
-}
-
-exports.readFrontendLenguajesOrdered = (req, res) => {
-    let lenguajeParam = req.params.lenguaje
-    let paramOrdenar = req.query.ordenar;
-    
-    const frontendFiltered = frontendService.getFrontendLanguagesFiltered(lenguajeParam, paramOrdenar)
-    //console.log(req)
-   if(frontendFiltered.length === 0){
-    return res.status(404).send(`No se encontró el lenguaje: ${lenguajeParam}`)
-   }
-
-    res.status(200).json({arrayFrontend: frontendFiltered})
-
-}
-
-exports.readFrontendDespedida = (req, res) => {
-    res.status(200).json({saludo: "Buenas noches niños"})
-}
-
-exports.nuevoMetodoFronted = (req, res) => {
-    let nuevoQuery = req.query.nuevoQueryParam
-
-    if(nuevoQuery === frontendService.getTextoSecreto()){
-        return res.status(200).json({nuevoMetodo: "Felicitaciones, adivinaste el texto secreto"})  
+    } catch (error) {
+        console.log("Error en el controller: - readFrontendLenguajes - ", error)
     }
-
-    res.status(404).json({nuevoMetodo: "alguno de los datos ingresados son incorrectos, revisar!"})
-
 }
 
-exports.createFrontendLanguage = (req, res) => {
-    console.log(req)
-    let lenguajeNuevo = req.body;
-    console.log("createFrontendLanguage CONTROLLER - ", lenguajeNuevo)
-    res.status(200).json(frontendService.createNewFrontendLanguage(lenguajeNuevo))
-}
+exports.readFrontendLenguajesOrdered = async (req, res) => {
+    try {
+        let lenguajeParam = req.params.lenguaje
+        let paramOrdenar = req.query.ordenar;
 
-exports.deleteFrontendLanguage = (req, res) => {
-    const id = req.params.id
-    const language = frontendService.deleteFrontendLanguageService(id)
-     
-    if(language.length === 0){
-        return res.status(404).send(`No se encuentra un lenguaje a eliminar con el id: ${id}`)
+        const frontendFiltered = frontendService.getFrontendLanguagesFiltered(lenguajeParam, paramOrdenar)
+        //console.log(req)
+        if (frontendFiltered.length === 0) {
+            return res.status(404).send(`No se encontró el lenguaje: ${lenguajeParam}`)
+        }
+        res.status(200).json({ arrayFrontend: frontendFiltered })
+    } catch (error) {
+        console.log("Error en el controller: - readFrontendLenguajesOrdered - ", error)
     }
-    
-    res.status(200).json(language)
 }
 
-exports.updateFrontendLanguage = (req, res) => {
-    const id = req.params.id
-    const lenguajeActualizado = req.body
+/* exports.readFrontendDespedida = (req, res) => {
+    res.status(200).json({ saludo: "Buenas noches niños" })
+} */
 
-    const language = frontendService.updateFrontendLanguageService(id, lenguajeActualizado)
-     
-    if(language.length === 0){
-        return res.status(404).send(`No se encuentra un lenguaje a actualizar con el id: ${id}`)
+exports.nuevoMetodoFronted = async(req, res) => {
+    try {
+        let nuevoQuery = req.query.nuevoQueryParam
+
+        if (nuevoQuery === await frontendService.getTextoSecreto()) {
+            return res.status(200).json({ nuevoMetodo: "Felicitaciones, adivinaste el texto secreto" })
+        }
+
+        res.status(404).json({ nuevoMetodo: "alguno de los datos ingresados son incorrectos, revisar!" })
+
+    } catch (error) {
+
+        console.log("Error en el controller: - nuevoMetodoFronted - ", error)
+
     }
-    
-    res.status(200).json(language)
+}
+
+exports.createFrontendLanguage = async (req, res) => {
+    try {
+        console.log(req)
+        let lenguajeNuevo = req.body;
+        console.log("createFrontendLanguage CONTROLLER - ", lenguajeNuevo)
+        res.status(200).json( await frontendService.createNewFrontendLanguage(lenguajeNuevo))
+    } catch (error) {
+        console.log("Error en el controller: - createFrontendLanguage - ", error)
+
+    }
+}
+
+exports.deleteFrontendLanguage = async (req, res) => {
+    try {
+        const id = req.params.id
+        const language = await frontendService.deleteFrontendLanguageService(id)
+
+        if (language.length === 0) {
+            return res.status(404).send(`No se encuentra un lenguaje a eliminar con el id: ${id}`)
+        }
+
+        res.status(200).json(language)
+    } catch (error) {
+        console.log("Error en el controller: - deleteFrontendLanguage - ", error)
+
+    }
+}
+
+exports.updateFrontendLanguage = async (req, res) => {
+    try {
+        const id = req.params.id
+        const lenguajeActualizado = req.body
+
+        const language = await frontendService.updateFrontendLanguageService(id, lenguajeActualizado)
+
+        if (language.length === 0) {
+            return res.status(404).send(`No se encuentra un lenguaje a actualizar con el id: ${id}`)
+        }
+
+        res.status(200).json(language)
+    } catch (error) {
+        console.log("Error en el controller: - updateFrontendLanguage - ", error)
+    }
 }
