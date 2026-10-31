@@ -33,7 +33,7 @@ exports.readFrontendLenguajesOrdered = async (req, res) => {
     res.status(200).json({ saludo: "Buenas noches niños" })
 } */
 
-exports.nuevoMetodoFronted = async(req, res) => {
+exports.nuevoMetodoFronted = async (req, res) => {
     try {
         let nuevoQuery = req.query.nuevoQueryParam
 
@@ -52,10 +52,10 @@ exports.nuevoMetodoFronted = async(req, res) => {
 
 exports.createFrontendLanguage = async (req, res) => {
     try {
-        console.log(req)
+        //console.log(req)
         let lenguajeNuevo = req.body;
         console.log("createFrontendLanguage CONTROLLER - ", lenguajeNuevo)
-        res.status(200).json( await frontendService.createNewFrontendLanguage(lenguajeNuevo))
+        res.status(200).json(await frontendService.createNewFrontendLanguage(lenguajeNuevo))
     } catch (error) {
         console.log("Error en el controller: - createFrontendLanguage - ", error)
 
@@ -92,5 +92,6 @@ exports.updateFrontendLanguage = async (req, res) => {
         res.status(200).json(language)
     } catch (error) {
         console.log("Error en el controller: - updateFrontendLanguage - ", error)
+        return res.status(500).json({ error: "Error interno del servidor al actualizar el lenguaje" });
     }
 }

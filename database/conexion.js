@@ -6,7 +6,7 @@ exports.getSQLConnection = async () => {
         console.log("Entrando en getSQLConnection")
 
         const pool = await sql.connect(configDB)
-        console.log(pool)
+        ///console.log(pool)
 
         const result = await pool.request().query('SELECT 10')
 

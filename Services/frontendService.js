@@ -58,7 +58,7 @@ exports.createNewFrontendLanguage = async (language) => {
 
 exports.deleteFrontendLanguageService = async (id) => {
     try {
-        return await frontendRepository.deleteFrontendLanuageRepository(id)
+        return await frontendRepository.deleteFrontendLanguageRepository(id)
     } catch (error) {
         console.log("Error en el service: - deleteFrontendLanguageService - ", error)
 
@@ -67,10 +67,10 @@ exports.deleteFrontendLanguageService = async (id) => {
 
 exports.updateFrontendLanguageService = async (id, lenguageUpdated) => {
     try {
-        return await frontendRepository.updateFrontendLanuageRepository(id, lenguageUpdated)
+        return await frontendRepository.updateFrontendLanguageRepository(id, lenguageUpdated)
     } catch (error) {
         console.log("Error en el service: - updateFrontendLanguageService - ", error)
-
+        throw error;
     }
 
 }
